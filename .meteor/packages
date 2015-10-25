@@ -19,3 +19,5 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 coffeescript
 fourseven:scss
 check
+aldeed:collection2
+ecwyne:mathjs

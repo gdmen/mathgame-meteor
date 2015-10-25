@@ -1,15 +1,22 @@
-silly = {
-  id: "silly_can_you_enter_the_number_42"
-  question: "Can you enter the number 42?"
-  answer: 42
-}
+Problems = new Mongo.Collection null
+
+fromExpression = (expr) ->
+  _id = math.parse(expr).toString()
+  if not Problems.findOne {_id}
+    Problems.insert {
+      _id
+      question: "What is #{expr} ?"
+      answer: math.eval expr
+    }
+  Problems.findOne {_id}
 
 @problem = {
-  get: (id) ->
-    check(id, String)
-    if id is silly.id
-      silly
-    else
-      null
-  getRandom: -> silly
+
+  _c: Problems
+
+  get: (_id) ->
+    check _id, String
+    Problems.findOne {_id}
+  getRandom: ->
+    fromExpression "#{_.random(1, 100)} + #{_.random(1, 100)}"
 }
