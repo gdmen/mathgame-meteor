@@ -1,5 +1,5 @@
 Problems = new Mongo.Collection(
-  null,
+  'mathgame_models_problems',
   transform: (doc) ->
     check doc._id, String
     expr = doc._id
@@ -11,15 +11,13 @@ Problems = new Mongo.Collection(
     answer: answerObject.toFraction()
 )
 
-Problems.attachSchema new SimpleSchema {
-  originalExpression:
-    type: String
-    label: "The original expression that was used to create the problem."
-    max: 20
-}
+Problems.attachSchema new SimpleSchema {}
 
-normalizeExpression = (expr) ->
-  math.parse(expr).toString()
+if Meteor.isServer
+  Problems.allow insert: -> true
+  Meteor.publish 'mathgame_models_problems.all', -> Problems.find {}
+if Meteor.isClient
+  Meteor.subscribe 'mathgame_models_problems.all'
 
 @problem =
 
@@ -30,7 +28,7 @@ normalizeExpression = (expr) ->
     Problems.findOne {_id}
 
   getRandom: ->
-    originalExpression = "#{_.random(1, 100)} + #{_.random(1, 100)}"
-    _id = normalizeExpression originalExpression
-    Problems.upsert {_id}, $set: {originalExpression}
+    _id = "#{_.random(1, 100)} + #{_.random(1, 100)}"
+    if not @get _id
+      Problems.insert {_id}
     @get _id
