@@ -11,6 +11,16 @@ Problems = new Mongo.Collection(
     answer: answerObject.toFraction()
 )
 
+Problems.attachSchema new SimpleSchema {
+  originalExpression:
+    type: String
+    label: "The original expression that was used to create the problem."
+    max: 20
+}
+
+normalizeExpression = (expr) ->
+  math.parse(expr).toString()
+
 @problem =
 
   _c: Problems
@@ -20,6 +30,7 @@ Problems = new Mongo.Collection(
     Problems.findOne {_id}
 
   getRandom: ->
-    _id = "#{_.random(1, 100)} + #{_.random(1, 100)}"
-    Problems.upsert {_id}, {_id}
+    originalExpression = "#{_.random(1, 100)} + #{_.random(1, 100)}"
+    _id = normalizeExpression originalExpression
+    Problems.upsert {_id}, $set: {originalExpression}
     @get _id
