@@ -1,8 +1,11 @@
 #Meteor.subscribe 'userData'
 
+Meteor.startup ->
+  Session.set 'example_problem', problem.getRandom()
+
 Template.body.helpers
 
-  problem: -> problem.getRandom()
+  problem: -> Session.get 'example_problem'
 
 Template.body.events
 
