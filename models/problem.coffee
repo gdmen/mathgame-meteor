@@ -1,20 +1,15 @@
-Problems = new Mongo.Collection null
+Problems = new Mongo.Collection(
+  null,
+  transform: (doc) ->
+    check doc._id, String
+    expr = doc._id
+    questionObject = math.parse expr
+    answerObject = math.eval expr
 
-fromExpression = (expr) ->
-  check expr, String
-
-  questionObject = math.parse expr
-  answerObject = math.eval expr
-
-  _id = questionObject.toString()
-  if not Problems.findOne {_id}
-    Problems.insert
-      _id: _id
-      questionText: "What is #{questionObject.toString()} ?"
-      questionLatex: "What is #{questionObject.toTex()} ?"
-      answerText: answerObject.toFraction()
-      answerLatex: answerObject.toLatex()
-  Problems.findOne {_id}
+    _id: doc._id
+    question: "What is #{questionObject.toString()} ?"
+    answer: answerObject.toFraction()
+)
 
 @problem =
 
@@ -25,4 +20,6 @@ fromExpression = (expr) ->
     Problems.findOne {_id}
 
   getRandom: ->
-    fromExpression "#{_.random(1, 100)} + #{_.random(1, 100)}"
+    _id = "#{_.random(1, 100)} + #{_.random(1, 100)}"
+    Problems.upsert {_id}, {_id}
+    @get _id
