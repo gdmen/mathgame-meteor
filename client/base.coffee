@@ -1,4 +1,4 @@
-#Meteor.subscribe 'userData'
+Meteor.subscribe 'userData'
 
 Meteor.startup ->
   Session.set 'example_problem', problem.getRandom()

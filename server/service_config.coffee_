@@ -1,0 +1,6 @@
+# Create your own google app & fill in the clientId and secret.
+ServiceConfiguration.configurations.remove service: 'google'
+ServiceConfiguration.configurations.insert
+  service: 'google'
+  clientId: ''
+  secret: ''
