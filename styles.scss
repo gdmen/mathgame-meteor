@@ -1,0 +1,125 @@
+// Make sure the charset is set appropriately
+@charset "UTF-8";
+
+// Foundation settings
+$primary-color: #2C8EC9;
+$secondary-color: #E7E7E7;
+$alert-color: #F76565;
+$success-color: #22BF64;
+
+$input-include-glowing-effect: false;
+
+$base-font-size: 14px;
+$rem-base: $base-font-size;
+$topbar-title-font-size: rem-calc(26);
+$topbar-margin-bottom: 1rem;
+
+$body-font-color: #4D4D4D;
+
+$topbar-bg: $primary-color;
+$topbar-link-bg: $topbar-bg;
+$topbar-link-bg-hover: scale-color($topbar-link-bg, $lightness: -14%);
+$topbar-link-bg-active: $topbar-link-bg;
+$topbar-link-bg-active-hover: scale-color($topbar-link-bg, $lightness: -14%);
+$topbar-dropdown-bg: scale-color($topbar-bg, $lightness: -28%);
+
+$body-bg: #FFF url(img/linedpaper.png) repeat;
+$row-width: rem-calc(1400);
+$global-radius: 0.25rem;
+
+@import "{juliancwirko:zf5}/scss/normalize.scss";
+@import "{juliancwirko:zf5}/scss/foundation.scss";
+
+// Custom Foundation overrides
+.column, .columns {
+  @include clearfix;
+  position: static;
+}
+.row {
+  position: relative;
+}
+h1, h2, h3, h4, h5, h6 {
+  display: inline-block;
+}
+button, .button {
+  h1, h2, h3, h4, h5, h6 {
+    color: $topbar-link-color;
+  }
+  margin-bottom: 1rem;
+}
+textarea {
+  line-height: 1.6;
+  overflow-y: hidden;
+}
+.top-bar-section {
+  i {
+    padding-right: 0.25em;
+  }
+  .left {
+    li {
+      background-color: $topbar-bg;
+    }
+  }
+}
+button,
+.button {
+  &.tiny {
+    margin-bottom: 0;
+    padding: 0.5rem;
+    text-transform: uppercase;
+  }
+}
+
+// Custom settings
+$base-border-color: #BBBBBB;
+$light-border-color: scale-color($base-border-color, $lightness: 50%);
+$medium-border-color: scale-color($base-border-color, $lightness: 25%);
+$footer-height: 2rem;
+$footer-bg: $topbar-bg;
+$input-padding: 0.57143rem;
+$max-z-index: 9999998;
+// Accent colors
+$accent-red: #FF4D4F;
+$accent-orange: orange;
+$accent-yellow: #FFFDD0;
+$accent-green: #EAFFDA;
+$accent-blue: #E7FEFF;
+$accent-purple: #F2C7FF;
+$accent-gray: #EEEEEE;
+
+// Custom mixins
+
+// Custom styles
+
+*, *:before, *:after {
+  -webkit-box-sizing: border-box; // Android = 2.3, iOS = 4
+  -moz-box-sizing: border-box; // Firefox 1+
+  box-sizing: border-box; // Chrome, IE 8+, Opera, Safari 5.1
+}
+
+// Sticky footer
+html, body {
+  height: 100%;
+}
+#non-footer {
+  min-height: 100%;
+  position: relative;
+}
+* html #non-footer {
+  height: 100%;
+}
+#page-container {
+  padding-bottom: $footer-height + $topbar-margin-bottom;
+}
+footer {
+  background-color: $footer-bg;
+  height: $footer-height;
+  margin-top: (-$footer-height);
+  position: relative;
+  text-align: center;
+  div {
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
