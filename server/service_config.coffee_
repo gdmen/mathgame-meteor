@@ -1,4 +1,6 @@
-# Create your own google app & fill in the clientId and secret.
+# 1. Create your own google app
+# 2. Fill in the clientId and secret
+# 3. Rename this file to service_config.coffee
 ServiceConfiguration.configurations.remove service: 'google'
 ServiceConfiguration.configurations.insert
   service: 'google'
