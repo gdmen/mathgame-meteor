@@ -1,7 +1,12 @@
 Meteor.subscribe 'userData'
 
 Meteor.startup ->
-  Session.set 'example_problem', problem.getRandom()
+  Session.set 'example_problem', problem.getRandom problem.ADDITION, {
+    min1: 1
+    max1: 100
+    min2: 1
+    max2: 100
+  }
 
 Template.body.helpers
 

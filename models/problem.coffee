@@ -5,13 +5,29 @@ Problems = new Mongo.Collection(
     expr = doc._id
     questionObject = math.parse expr
     answerObject = math.eval expr
-
-    _id: doc._id
-    question: "What is #{questionObject.toString()} ?"
-    answer: answerObject.toFraction()
+    _.extend doc,
+      question: "What is #{questionObject.toString()} ?"
+      answer: answerObject.toFraction()
 )
 
-Problems.attachSchema new SimpleSchema {}
+problemTypeMap = {
+  ADDITION: (config) ->
+    check config.min1, Match.Integer
+    check config.max1, Match.Integer
+    check config.min2, Match.Integer
+    check config.max2, Match.Integer
+    num1 = _.random config.min1, config.max1
+    num2 = _.random config.min2, config.max2
+    "#{num1} + #{num2}"
+}
+
+Problems.attachSchema new SimpleSchema {
+  type: {
+    type: String
+    label: 'type'
+    allowedValues: _.keys problemTypeMap
+  }
+}
 
 if Meteor.isServer
   Problems.allow insert: -> true
@@ -27,8 +43,13 @@ if Meteor.isClient
     check _id, String
     Problems.findOne {_id}
 
-  getRandom: ->
-    _id = "#{_.random(1, 100)} + #{_.random(1, 100)}"
+  getRandom: (problemType, config) ->
+    check problemType, Match.Where (k) -> problemTypeMap[k]?
+    _id = problemTypeMap[problemType](config)
     if not @get _id
-      Problems.insert {_id}
+      Problems.insert {_id, type: problemType}
     @get _id
+
+for problemType in _.keys problemTypeMap
+  @problem[problemType] = problemType
+
