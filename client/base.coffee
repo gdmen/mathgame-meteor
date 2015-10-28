@@ -1,16 +1,15 @@
 Meteor.subscribe 'userData'
 
+@exampleProblem = new ReactiveVar()
+
 Meteor.startup ->
-  Session.set 'example_problem', problem.getRandom problem.ADDITION, {
-    min1: 1
-    max1: 100
-    min2: 1
-    max2: 100
-  }
+  exampleProblem.set problem.getRandom MULTIPLICATION,
+    x: [1, 100]
+    y: [1, 100]
 
 Template.body.helpers
 
-  problem: -> Session.get 'example_problem'
+  problem: -> exampleProblem.get()
 
 Template.body.events
 

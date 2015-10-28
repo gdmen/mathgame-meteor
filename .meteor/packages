@@ -24,3 +24,6 @@ juliancwirko:zf5@2.0.0
 accounts-google
 fortawesome:fontawesome
 service-configuration
+sanjo:jasmine
+velocity:html-reporter
+reactive-var

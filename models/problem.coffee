@@ -6,20 +6,34 @@ Problems = new Mongo.Collection(
     questionObject = math.parse expr
     answerObject = math.eval expr
     _.extend doc,
-      question: "What is #{questionObject.toString()} ?"
+      question: "What is #{
+        questionObject
+          .toString()
+          .replace(/\*/g, '\u00D7')
+          .replace(/\//g, '\u00F7')
+      } ?"
+      questionLatex: "\\text{What is }#{
+        questionObject
+          .toTex()
+          .replace(/\\cdot/g, '\\times')
+      }\\text{ ?}"
       answer: answerObject.toFraction()
+      answerLatex: answerObject.toLatex()
 )
 
-problemTypeMap = {
+getRandomValue = (range) ->
+  check range, [Match.Integer]
+  check range.length, 2
+  check range[0] <= range[1], true
+  _.random range[0], range[1]
+
+problemTypeMap =
+
   ADDITION: (config) ->
-    check config.min1, Match.Integer
-    check config.max1, Match.Integer
-    check config.min2, Match.Integer
-    check config.max2, Match.Integer
-    num1 = _.random config.min1, config.max1
-    num2 = _.random config.min2, config.max2
-    "#{num1} + #{num2}"
-}
+    "#{getRandomValue config.x} + #{getRandomValue config.y}"
+
+  MULTIPLICATION: (config) ->
+    "#{getRandomValue config.x} * #{getRandomValue config.y}"
 
 Problems.attachSchema new SimpleSchema {
   type: {
@@ -51,5 +65,5 @@ if Meteor.isClient
     @get _id
 
 for problemType in _.keys problemTypeMap
-  @problem[problemType] = problemType
+  @[problemType] = problemType
 
