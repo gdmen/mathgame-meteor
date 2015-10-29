@@ -16,6 +16,7 @@ Problems = new Mongo.Collection(
         questionObject
           .toTex()
           .replace(/\\cdot/g, '\\times')
+          .replace(/\\frac{([^}]*)}{([^}])*}/g, '$1\\div$2')
       }\\text{ ?}"
       answer: answerObject.toFraction()
       answerLatex: answerObject.toLatex()
@@ -32,8 +33,16 @@ problemTypeMap =
   ADDITION: (config) ->
     "#{getRandomValue config.x} + #{getRandomValue config.y}"
 
+  SUBTRACTION: (config) ->
+    y = getRandomValue config.y
+    "#{y + getRandomValue config.z} - #{y}"
+
   MULTIPLICATION: (config) ->
     "#{getRandomValue config.x} * #{getRandomValue config.y}"
+
+  DIVISION: (config) ->
+    y = getRandomValue config.y
+    "#{y * getRandomValue config.z} / #{y}"
 
 Problems.attachSchema new SimpleSchema {
   type: {

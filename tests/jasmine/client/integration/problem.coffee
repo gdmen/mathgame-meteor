@@ -19,3 +19,27 @@ describe 'the problem module', ->
       questionLatex: '\\text{What is }6\\times7\\text{ ?}'
       answer: '42'
       answerLatex: '42'
+
+  it 'returns trivial subtraction and division problems', ->
+
+    expect(problem.getRandom(
+      DIVISION,
+      y: [7, 7], z: [6, 6]
+    )).toEqual
+      _id: '42 / 7'
+      type: DIVISION
+      question: 'What is 42 \u00F7 7 ?'
+      questionLatex: '\\text{What is }42\\div7\\text{ ?}'
+      answer: '6'
+      answerLatex: '6'
+
+    expect(problem.getRandom(
+      SUBTRACTION,
+      y: [7, 7], z: [35, 35]
+    )).toEqual
+      _id: '42 - 7'
+      type: SUBTRACTION
+      question: 'What is 42 - 7 ?'
+      questionLatex: '\\text{What is }42-7\\text{ ?}'
+      answer: '35'
+      answerLatex: '35'
