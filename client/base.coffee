@@ -1,17 +1,18 @@
 Meteor.subscribe 'userData'
 
-@exampleProblem = new ReactiveVar()
-
-Meteor.startup ->
-  exampleProblem.set problem.getRandom MULTIPLICATION,
-    x: [1, 100]
-    y: [1, 100]
+video = new ReactiveVar()
 
 Template.body.helpers
 
-  problem: -> exampleProblem.get()
+  video: -> video.get()
 
 Template.body.events
+
+  'click .play_youtube': ->
+    video.set videoId: '0rqeR-iLKYA', startSeconds: 20, endSeconds: 25
+
+  'youtube_autoplay_ended': ->
+    video.set undefined
 
   'click a#login-button': (e, t) ->
     e.preventDefault()

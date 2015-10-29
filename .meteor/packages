@@ -27,3 +27,5 @@ service-configuration
 sanjo:jasmine
 velocity:html-reporter
 reactive-var
+random
+numtel:template-from-string

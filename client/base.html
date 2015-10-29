@@ -4,11 +4,6 @@
   <title>mathgame</title>
 </head>
 <body>
-  <div id="ryandm_testing_feel_free_to_delete">
-    {{#with problem}}
-      {{> problem_view}}
-    {{/with}}
-  </div>
   <div id="non-footer">
     <div id="page-container">
       <div class="contain-to-grid">
@@ -41,6 +36,13 @@
         {{#if currentUser }}
           You are logged in
         {{/if}}
+
+        {{#if video}}
+          {{> youtube_autoplay width=400 height=600 video=video}}
+        {{else}}
+          <a class="play_youtube" href='#'>Play a YouTube video.</a>
+        {{/if}}
+
       </div>
     </div><!--/page-container -->
   </div><!--/non-footer -->
