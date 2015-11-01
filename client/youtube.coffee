@@ -18,9 +18,21 @@ Template.registerHelper TEMPLATE_NAME, _.memoize ->
   template = Template.fromString "<div><div id='#{PLAYER_DOM_ID}'></div></div>"
 
   template.onRendered ->
+
+    check @data,
+      height: Match.Integer
+      width: Match.Integer
+      mute: Match.Optional Boolean
+      video:
+        videoId: String
+        startSeconds: Match.Integer
+        endSeconds: Match.Integer
+
     isReady = new ReactiveVar false
     @autorun =>
       if isReady.get()
+        if @data.mute
+          @player.mute()
         @player.loadVideoById @data.video
     @autorun =>
       if isApiReady.get()
@@ -36,9 +48,18 @@ Template.registerHelper TEMPLATE_NAME, _.memoize ->
               rel: 0
               showinfo: 0
             events:
-              onStateChange: (event) ->
-                if event.data == YT.PlayerState.ENDED
-                  $("##{PLAYER_DOM_ID}").trigger $.Event "#{TEMPLATE_NAME}_ended"
+              onStateChange: do ->
+                triggerEvent = (suffix) ->
+                  $("##{PLAYER_DOM_ID}").trigger $.Event "#{TEMPLATE_NAME}_#{suffix}"
+                hasBuffered = false
+                (event) ->
+                  switch event.data
+                    when YT.PlayerState.BUFFERING
+                      hasBuffered = true
+                    when YT.PlayerState.UNSTARTED
+                      triggerEvent 'failed' if hasBuffered
+                    when YT.PlayerState.ENDED
+                      triggerEvent 'ended'
               onReady: (event) ->
                 isReady.set true
           }

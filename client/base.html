@@ -38,9 +38,12 @@
         {{/if}}
 
         {{#if video}}
-          {{> youtube_autoplay width=400 height=600 video=video}}
+          {{> youtube_autoplay width=960 height=575 video=video}}
         {{else}}
-          <a class="play_youtube" href='#'>Play a YouTube video.</a>
+          <ul>
+            <li><a class="play_youtube" href='#'>Play a YouTube video.</a></li>
+            <li><a class="play_unavailable_youtube" href='#'>Play an unavailable YouTube video.</a></li>
+          </ul>
         {{/if}}
 
       </div>
