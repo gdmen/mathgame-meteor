@@ -37,6 +37,10 @@
           You are logged in
         {{/if}}
 
+        {{#with problem}}
+          {{> problem_view}}
+        {{/with}}
+
         {{#if video}}
           {{> youtube_autoplay width=960 height=575 video=video}}
         {{else}}
@@ -45,7 +49,6 @@
             <li><a class="play_unavailable_youtube" href='#'>Play an unavailable YouTube video.</a></li>
           </ul>
         {{/if}}
-
       </div>
     </div><!--/page-container -->
   </div><!--/non-footer -->

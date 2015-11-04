@@ -6,18 +6,16 @@ Problems = new Mongo.Collection(
     questionObject = math.parse expr
     answerObject = math.eval expr
     _.extend doc,
-      question: "What is #{
+      question: do ->
         questionObject
           .toString()
           .replace(/\*/g, '\u00D7')
           .replace(/\//g, '\u00F7')
-      } ?"
-      questionLatex: "\\text{What is }#{
+      questionLatex: do ->
         questionObject
           .toTex()
           .replace(/\\cdot/g, '\\times')
           .replace(/\\frac{([^}]*)}{([^}])*}/g, '$1\\div$2')
-      }\\text{ ?}"
       answer: answerObject.toFraction()
       answerLatex: answerObject.toLatex()
 )

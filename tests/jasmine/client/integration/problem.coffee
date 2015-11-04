@@ -5,8 +5,8 @@ describe 'the problem module', ->
     expect(problem.getRandom ADDITION, config).toEqual
       _id: '1 + 2'
       type: ADDITION
-      question: 'What is 1 + 2 ?'
-      questionLatex: '\\text{What is }1+2\\text{ ?}'
+      question: '1 + 2'
+      questionLatex: '1+2'
       answer: '3'
       answerLatex: '3'
 
@@ -15,8 +15,8 @@ describe 'the problem module', ->
     expect(problem.getRandom MULTIPLICATION, config).toEqual
       _id: '6 * 7'
       type: MULTIPLICATION
-      question: 'What is 6 \u00D7 7 ?'
-      questionLatex: '\\text{What is }6\\times7\\text{ ?}'
+      question: '6 \u00D7 7'
+      questionLatex: '6\\times7'
       answer: '42'
       answerLatex: '42'
 
@@ -28,8 +28,8 @@ describe 'the problem module', ->
     )).toEqual
       _id: '42 / 7'
       type: DIVISION
-      question: 'What is 42 \u00F7 7 ?'
-      questionLatex: '\\text{What is }42\\div7\\text{ ?}'
+      question: '42 \u00F7 7'
+      questionLatex: '42\\div7'
       answer: '6'
       answerLatex: '6'
 
@@ -39,7 +39,7 @@ describe 'the problem module', ->
     )).toEqual
       _id: '42 - 7'
       type: SUBTRACTION
-      question: 'What is 42 - 7 ?'
-      questionLatex: '\\text{What is }42-7\\text{ ?}'
+      question: '42 - 7'
+      questionLatex: '42-7'
       answer: '35'
       answerLatex: '35'

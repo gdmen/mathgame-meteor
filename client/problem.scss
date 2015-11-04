@@ -1,0 +1,27 @@
+$color: #333;
+
+form.problem_view {
+
+  text-align: center;
+
+  label, input {
+    font-size: 8em;
+    color: $color;
+  }
+
+  input[type="text"], input[type="text"]:focus {
+    text-align: center;
+    height: inherit;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-bottom: 2px solid $color;
+    max-width: 2.5em;
+  }
+
+  .problem_view_feedback {
+    color: red;
+    font-size: 3em;
+    height: 1em;
+  }
+}

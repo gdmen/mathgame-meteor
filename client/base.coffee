@@ -1,8 +1,16 @@
 Meteor.subscribe 'userData'
 
+currentProblem = new ReactiveVar()
 video = new ReactiveVar()
 
+advanceProblem = ->
+  currentProblem.set problem.getRandom ADDITION, x: [1, 10], y: [1, 10]
+
+Meteor.startup advanceProblem
+
 Template.body.helpers
+
+  problem: -> currentProblem.get()
 
   video: -> video.get()
 
@@ -20,6 +28,9 @@ Template.body.events
   'youtube_autoplay_failed': ->
     video.set undefined
     alert "Failed to play the video!"
+
+  'problem_answered': (event) ->
+    advanceProblem() if event.isCorrect
 
   'click a#login-button': (e, t) ->
     e.preventDefault()

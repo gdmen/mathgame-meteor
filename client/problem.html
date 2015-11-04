@@ -1,6 +1,24 @@
 <template name="problem_view">
-  <div>
-    <p>Q: {{question}}</p>
-    <p>A: {{answer}}</p>
-  </div>
+  <form class="problem_view" autocomplete="off">
+    <div class='row'>
+      <div class='small-12 columns'>
+        <p class='problem_view_feedback'>
+          {{#if lastAnswer.isWrong}}
+            {{lastAnswer.answer}} is not correct. Try again.
+          {{/if}}
+        </p>
+      </div>
+      <div class='small-6 columns'>
+        <label class='right inline'>{{question}} = </label>
+      </div>
+      <div class='small-6 columns'>
+        <input name='answer' type="text" maxlength="3" />
+      </div>
+    </div>
+    <div class='row'>
+      <div class='small-12 columns'>
+        <button type="submit">OK</button>
+      </div>
+    </div>
+  </form>
 </template>
