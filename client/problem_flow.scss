@@ -4,4 +4,11 @@
     border-color: #555;
     padding: 0;
   }
+  .problem_flow_video_options p {
+    font-size: 2em;
+    .videoOption {
+      text-transform: uppercase;
+      width: 25em;
+    }
+  }
 }

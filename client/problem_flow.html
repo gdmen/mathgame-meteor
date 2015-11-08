@@ -2,16 +2,39 @@
   <div class='row problem_flow_view'>
     <div class='small-12 columns'>
       {{#if currentProblem}}
-        <div class="progress success round">
-          <span class="meter" style="width: {{percentSolved}}%"></span>
-        </div>
+        {{> problem_flow_view_progress_bar}}
         {{#with currentProblem}}
           {{> problem_view}}
         {{/with}}
       {{/if}}
       {{#if video}}
-        {{> youtube_autoplay width=960 height=575 video=video}}
+        <center>
+          {{> youtube_autoplay width=960 height=575 video=video}}
+        </center>
+      {{/if}}
+      {{#if videoOptions}}
+        {{> problem_flow_view_progress_bar}}
+        <center class='problem_flow_video_options'>
+          <p>
+            {{#if lastVideoFailed}}
+              Oops, couldn't play that one. Choose a different video:
+            {{else}}
+              Good job! Choose a video:
+            {{/if}}
+          </p>
+          {{#each videoOptions}}
+            <p>
+              <a href="#" class="videoOption button secondary round">{{title}}</a>
+            </p>
+          {{/each}}
+        </center>
       {{/if}}
     </div>
+  </div>
+</template>
+
+<template name='problem_flow_view_progress_bar'>
+  <div class="progress success round">
+    <span class="meter" style="width: {{percentSolved}}%"></span>
   </div>
 </template>
