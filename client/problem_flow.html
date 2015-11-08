@@ -1,0 +1,17 @@
+<template name='problem_flow_view'>
+  <div class='row problem_flow_view'>
+    <div class='small-12 columns'>
+      {{#if currentProblem}}
+        <div class="progress success round">
+          <span class="meter" style="width: {{percentSolved}}%"></span>
+        </div>
+        {{#with currentProblem}}
+          {{> problem_view}}
+        {{/with}}
+      {{/if}}
+      {{#if video}}
+        {{> youtube_autoplay width=960 height=575 video=video}}
+      {{/if}}
+    </div>
+  </div>
+</template>

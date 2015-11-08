@@ -23,10 +23,11 @@ Template.registerHelper TEMPLATE_NAME, _.memoize ->
       height: Match.Integer
       width: Match.Integer
       mute: Match.Optional Boolean
-      video:
+      video: Match.ObjectIncluding(
         videoId: String
         startSeconds: Match.Integer
         endSeconds: Match.Integer
+      )
 
     isReady = new ReactiveVar false
     @autorun =>
