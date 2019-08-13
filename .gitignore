@@ -2,3 +2,4 @@
 .meteor/local
 .meteor/meteorite
 service_config.coffee
+node_modules
